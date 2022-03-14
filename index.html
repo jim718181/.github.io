@@ -23,7 +23,7 @@
           Eff.
         </p>
         <p id="effectivestartingstackdata" class="input-data">
-          200
+          500
         </p>
         <button id="startingstackbutton" class="change-buttons">
           Edit
@@ -61,7 +61,7 @@
           BB
         </p>
         <p id="bigblinddata" class="input-data">
-          2
+          3
         </p>
         <button class="change-buttons">
           Edit
@@ -80,7 +80,7 @@
           Open
         </p>
         <p id="opendata" class="input-data">
-          12
+          10
         </p>
         <button class="change-buttons">
           Edit
@@ -118,9 +118,9 @@
       <p id="preflopbet">
         Pre Flop Bet Size
       </p>
-      <p id="preflopbetdata" class="calculated-data">
-        NA
-      </p>
+      <input type="number" id="preflopbetdata" class="calculated-data" value="0">
+
+      </input>
     </div>
     <div class="double-container">
       <p id="prepot">
@@ -165,7 +165,7 @@
         <div class="modalcontent">
           <span class="close">&times;</span>
           <h1>Enter Flop Bet Size Ratio</h1>
-          <input type="number" class="modal-input" min=".1" max="3" step=".05" value=".5">
+          <input type="number" class="modal-input" min=".0" max="3" step=".05" value=".5">
           <input class="submit" type="submit"></input>
         </div>
       </div>
@@ -193,9 +193,9 @@
       <p id="flopbet">
         Flop Bet Size
       </p>
-      <p id="flopbetdata" class="calculated-data">
-        0
-      </p>
+      <input type="number" id="flopbetdata" class="calculated-data" value="0">
+
+      </input>
     </div>
     <div class="double-container">
       <p id="floppot">
@@ -240,7 +240,7 @@
         <div class="modalcontent">
           <span class="close">&times;</span>
           <h1>Enter Turn Bet Size Ratio</h1>
-          <input type="number" class="modal-input" min=".1" max="3" step=".05" value=".5">
+          <input type="number" class="modal-input" min="0" max="3" step=".05" value=".5">
           <input class="submit" type="submit"></input>
         </div>
       </div>
@@ -268,9 +268,9 @@
       <p id="turnbet">
         Turn Bet Size
       </p>
-      <p id="turnbetdata" class="calculated-data">
-        0
-      </p>
+      <input type="number" id="turnbetdata" class="calculated-data" value="0">
+
+      </input>
     </div>
     <div class="double-container">
       <p id="turnpot">
@@ -314,7 +314,7 @@
         <div class="modalcontent">
           <span class="close">&times;</span>
           <h1>Enter River Bet Size Ratio</h1>
-          <input type="number" class="modal-input" min=".1" max="3" step=".05" value=".5">
+          <input type="number" class="modal-input" min="0" max="3" step=".05" value=".5">
           <input class="submit" type="submit"></input>
         </div>
       </div>
@@ -342,9 +342,9 @@
       <p id="riverbet">
         River Bet Size
       </p>
-      <p id="riverbetdata" class="calculated-data">
-        0
-      </p>
+      <input type="number" id="riverbetdata" class="calculated-data" value="0">
+
+      </input>
     </div>
     <div class="double-container">
       <p id="riverpot">

@@ -1,8 +1,8 @@
 const pre = {
-  startingstack: 200,
+  startingstack: 500,
   smallblind: 1,
-  bigblind: 2,
-  opensize: 12,
+  bigblind: 3,
+  opensize: 10,
   callers: 1,
   pot: 0,
   flopremainingstack: 9999,
@@ -11,7 +11,7 @@ const pre = {
 
 const flop = {
   sizeratio: .50,
-  bet: 0,
+  betsize: 0,
   callers: 1,
   pot: 0,
   turnremainingstack: 9999,
@@ -71,7 +71,8 @@ const calcpre = () => {
 }
 
 const fillvaluespre = () => {
-  document.getElementById('preflopbetdata').textContent = `${pre.opensize}`
+  document.getElementById('preflopbetdata').value = `${pre.opensize}`
+  document.getElementById('opendata').textContent = `${pre.opensize}`
   document.getElementById('prepotdata').textContent = `${pre.pot}`;
   document.getElementById('flopremainingstackdata').textContent = `${pre.flopremainingstack}`;
   if (pre.flopspr === 0) {
@@ -105,7 +106,8 @@ const calcflop = () => {
 }
 
 const fillvaluesflop = () => {
-  document.getElementById('flopbetdata').textContent = `${flop.betsize}`
+  document.getElementById('flopbetdata').value = `${flop.betsize}`
+  document.getElementById('flopsizeratiosdata').textContent = `${flop.sizeratio}`;
   document.getElementById('floppotdata').textContent = `${flop.pot}`;
   document.getElementById('turnremainingstackdata').textContent = `${flop.turnremainingstack}`;
   if (flop.turnspr === 0) {
@@ -139,7 +141,8 @@ const calcturn = () => {
 }
 
 const fillvaluesturn = () => {
-  document.getElementById('turnbetdata').textContent = `${turn.betsize}`;
+  document.getElementById('turnbetdata').value = `${turn.betsize}`;
+  document.getElementById('turnsizeratiodata').textContent = `${turn.sizeratio}`;
   document.getElementById('turnpotdata').textContent = `${turn.pot}`;
   document.getElementById('riverremainingstackdata').textContent = `${turn.riverremainingstack}`;
   if (turn.riverspr === 0) {
@@ -169,7 +172,8 @@ const calcriver = () => {
 }
 
 const fillvaluesriver = () => {
-  document.getElementById('riverbetdata').textContent = `${river.betsize}`;
+  document.getElementById('riverbetdata').value = `${river.betsize}`;
+  document.getElementById('riversizeratiodata').textContent = `${river.sizeratio}`;
   document.getElementById('riverpotdata').textContent = `${river.pot}`;
   document.getElementById('endofhandstackdata').textContent = `${river.endofremainingstack}`;
 }
@@ -214,3 +218,48 @@ submitbuttons.forEach((button, idx) => {
     calcpre();
   });
 })
+
+const preflopbetdata = document.getElementById('preflopbetdata');
+preflopbetdata.addEventListener('input', function (evt) {
+  pre.opensize = this.value;
+  pre.pot = (pre.opensize * (pre.callers + 1)) + pre.smallblind + pre.bigblind;
+  pre.flopremainingstack = pre.startingstack - pre.opensize;
+  pre.flopspr = pre.flopremainingstack / pre.pot;
+  fillvaluespre();
+  calcflop();
+});
+
+const flopbetdata = document.getElementById('flopbetdata');
+flopbetdata.addEventListener('input', function (evt) {
+  flop.betsize = this.value;
+  flop.pot = (flop.betsize * (flop.callers + 1)) + pre.pot;
+  flop.turnremainingstack = pre.flopremainingstack - flop.betsize;
+  flop.turnspr = flop.turnremainingstack / flop.pot;
+  flop.sizeratio = flop.betsize / pre.pot;
+  flop.sizeratio = flop.sizeratio.toFixed(2);
+  fillvaluesflop();
+  calcturn();
+});
+
+const turnbetdata = document.getElementById('turnbetdata');
+turnbetdata.addEventListener('input', function (evt) {
+  turn.betsize = this.value;
+  turn.pot = (turn.betsize * (turn.callers + 1)) + flop.pot;
+  turn.riverremainingstack = flop.turnremainingstack - turn.betsize;
+  turn.riverspr = turn.riverremainingstack / turn.pot;
+  turn.sizeratio = turn.betsize / flop.pot;
+  turn.sizeratio = turn.sizeratio.toFixed(2);
+  fillvaluesturn();
+  calcriver();
+});
+
+const riverbetdata = document.getElementById('riverbetdata');
+riverbetdata.addEventListener('input', function (evt) {
+  river.betsize = this.value;
+  river.pot = (river.betsize * (river.callers + 1)) + turn.pot;
+  river.endofhandremainingstack = turn.riverremainingstack - river.betsize;
+  river.sizeratio = river.betsize / turn.pot;
+  river.sizeratio = river.sizeratio.toFixed(2);
+  fillvaluesriver();
+});
+
